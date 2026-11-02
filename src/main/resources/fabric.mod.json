@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "id": "safe-block-place",
+  "version": "${version}",
+  "name": "Safe Block Place",
+  "description": "Awaiting servers response before placing blocks to fake blocks, protecting yourself e.g. against falling into the void while bridging in the end.",
+  "authors": ["red"],
+  "contact": {},
+  "license": "GPL-3.0",
+  "icon": "assets/safe-block-place/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "fabric-datagen": [
+      "dev.thebjoredcraft.safeBlockPlace.client.ClientDataGenerator"
+    ],
+    "client": [
+      "dev.thebjoredcraft.safeBlockPlace.client.ClientMain"
+    ],
+    "main": [
+      "dev.thebjoredcraft.safeBlockPlace.Main"
+    ]
+  },
+  "mixins": [
+    "safe-block-place.mixins.json",
+    {
+      "config": "safe-block-place.client.mixins.json",
+      "environment": "client"
+    }
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric-language-kotlin": ">=${kotlin_loader_version}",
+    "fabric-api": "*",
+    "minecraft": "${minecraft_version}"
+  }
+}
