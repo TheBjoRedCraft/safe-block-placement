@@ -18,6 +18,9 @@
     ],
     "main": [
       "dev.thebjoredcraft.safeBlockPlace.Main"
+    ],
+    "modmenu": [
+      "dev.thebjoredcraft.safeBlockPlace.config.ModMenuIntegration"
     ]
   },
   "mixins": [

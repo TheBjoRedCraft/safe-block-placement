@@ -37,11 +37,16 @@ fabricApi {
     }
 }
 
+repositories {
+    maven("https://maven.terraformersmc.com/")
+}
+
 dependencies {
     minecraft("com.mojang:minecraft:${project.property("minecraft_version")}")
     implementation("net.fabricmc:fabric-loader:${project.property("loader_version")}")
     implementation("net.fabricmc:fabric-language-kotlin:${project.property("kotlin_loader_version")}")
 
+    implementation("com.terraformersmc:modmenu:${project.property("modmenu_version")}")
     implementation("net.fabricmc.fabric-api:fabric-api:${project.property("fabric_version")}")
 }
 

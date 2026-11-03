@@ -1,5 +1,7 @@
 package dev.thebjoredcraft.safeBlockPlace.mixin.client;
 
+import dev.thebjoredcraft.safeBlockPlace.client.cache.PlacementCache;
+import dev.thebjoredcraft.safeBlockPlace.config.loader.SafeBlockPlacementConfig;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
@@ -14,12 +16,19 @@ public class ItemStackMixin {
 
   @Inject(method = "useOn", at = @At("HEAD"), cancellable = true)
   private void skipFakeBlock(UseOnContext context, CallbackInfoReturnable<InteractionResult> callback) {
+    if(!SafeBlockPlacementConfig.get().enabled) {
+      return;
+    }
+
+    if(!context.getLevel().isClientSide()) {
+      return;
+    }
+
     ItemStack self = (ItemStack) (Object) this;
 
-    if(context.getLevel().isClientSide()) {
-      if(self.getItem() instanceof BlockItem) {
-        callback.setReturnValue(InteractionResult.SUCCESS);
-      }
+    if(self.getItem() instanceof BlockItem) {
+      PlacementCache.INSTANCE.cache(context.getClickedPos());
+      callback.setReturnValue(InteractionResult.SUCCESS);
     }
   }
 }
