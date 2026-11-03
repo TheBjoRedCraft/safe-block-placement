@@ -21,13 +21,23 @@ public class ClientLevelMixin {
 
   @Inject(method = "setServerVerifiedBlockState", at = @At("TAIL"))
   private void fakeBlockSound(BlockPos pos, BlockState blockState, int updateFlag, CallbackInfo ci) {
-    if(blockState.isAir() || !PlacementCache.INSTANCE.consume(pos)) {
+    if(blockState.isAir()) {
       return;
     }
 
-    SoundType type = blockState.getSoundType();
+    SoundType type = PlacementCache.INSTANCE.consume(pos);
+
+    if(type == null) {
+      return;
+    }
+
     ((ClientLevel) (Object) this).playLocalSound(
-        pos, type.getPlaceSound(), SoundSource.BLOCKS,
-        (type.getVolume() + 1.0F) / 2.0F, type.getPitch() * 0.8F, false);
+        pos,
+        type.getPlaceSound(),
+        SoundSource.BLOCKS,
+        (type.getVolume() + 1.0F) / 2.0F,
+        type.getPitch() * 0.8F,
+        false
+    );;
   }
 }

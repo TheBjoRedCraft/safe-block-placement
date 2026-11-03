@@ -19,7 +19,7 @@ class ClientMain : ClientModInitializer {
         val toggleKey = KeyMappingHelper.registerKeyMapping(
             KeyMapping(
                 "key.safeblockplace.toggle",
-                74,
+                106,
                 category
             )
         )
